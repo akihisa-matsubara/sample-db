@@ -1,0 +1,65 @@
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+    xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+    <modelVersion>4.0.0</modelVersion>
+    <groupId>jp.co.sample</groupId>
+    <artifactId>sample-db</artifactId>
+    <version>0.0.1-SNAPSHOT</version>
+    <packaging>pom</packaging>
+
+    <properties>
+        <project.lib.path>${basedir}/lib</project.lib.path>
+        <db.name>mydb</db.name>
+        <db.host>localhost</db.host>
+        <db.port>50000</db.port>
+        <db.schema>TEST</db.schema>
+        <db.jdbc.url>jdbc:db2://${db.host}:${db.port}/${db.name}:currentSchema=${db.schema};</db.jdbc.url>
+        <db.username>db2admin</db.username>
+        <db.password>db2admin</db.password>
+        <!-- version -->
+        <flyway-maven-plugin.version>5.2.4</flyway-maven-plugin.version>
+    </properties>
+
+    <dependencies>
+        <!-- system scope -->
+        <dependency>
+            <groupId>com.ibm.db2.jcc</groupId>
+            <artifactId>db2jcc4</artifactId>
+            <version>11.1</version>
+            <scope>system</scope>
+            <systemPath>${project.lib.path}/db2jcc4.jar</systemPath>
+        </dependency>
+    </dependencies>
+
+    <build>
+        <pluginManagement>
+            <plugins>
+                <plugin>
+                    <groupId>org.flywaydb</groupId>
+                    <artifactId>flyway-maven-plugin</artifactId>
+                    <version>${flyway-maven-plugin.version}</version>
+                </plugin>
+            </plugins>
+        </pluginManagement>
+        <plugins>
+            <plugin>
+                <groupId>org.flywaydb</groupId>
+                <artifactId>flyway-maven-plugin</artifactId>
+                <inherited>false</inherited>
+                <configuration>
+                    <url>${db.jdbc.url}</url>
+                    <user>${db.username}</user>
+                    <password>${db.password}</password>
+                    <locations>
+                        <location>filesystem:tools/flyway/db/migrations</location>
+                    </locations>
+                    <placeholders>
+                        <schemaName>${db.schema}</schemaName>
+                        <importFilePath>${project.basedir}/tools/flyway/db/import</importFilePath>
+                    </placeholders>
+                    <skip>false</skip>
+                </configuration>
+            </plugin>
+        </plugins>
+    </build>
+
+</project>
