@@ -1,227 +1,227 @@
 
 /* Drop Tables */
 
-DROP TABLE M_AUTH;
-DROP TABLE M_POST_CODE;
-DROP TABLE M_SYSTEM_DATE;
-DROP TABLE M_USER;
-DROP TABLE T_CUSTOMER_FAMILY_RELATION;
-DROP TABLE T_CUSTOMER;
-DROP TABLE T_FAMILY;
-DROP TABLE T_ONETIME_TOKEN;
+-- DROP TABLE M_AUTH;
+-- DROP TABLE M_POST_CODE;
+-- DROP TABLE M_SYSTEM_DATE;
+-- DROP TABLE M_USER;
+-- DROP TABLE T_CUSTOMER_FAMILY_RELATION;
+-- DROP TABLE T_CUSTOMER;
+-- DROP TABLE T_FAMILY;
+-- DROP TABLE T_ONETIME_TOKEN;
 
 
 
 /* Drop Sequences */
 
-DROP SEQUENCE SEQ_CUSTOMER_NO;
+-- DROP SEQUENCE SEQ_CUSTOMER_NO;
 
 
 
 
 /* Create Sequences */
 
-CREATE SEQUENCE SEQ_CUSTOMER_NO AS INTEGER INCREMENT BY 1 MINVALUE 1 MAXVALUE 999999999 START WITH 1 CYCLE NOCACHE;
+CREATE SEQUENCE ${schemaName}.SEQ_CUSTOMER_NO AS INTEGER INCREMENT BY 1 MINVALUE 1 MAXVALUE 999999999 START WITH 1 CYCLE NOCACHE;
 
 
 
 /* Create Tables */
 
--- ”FØƒ}ƒXƒ^
-CREATE TABLE M_AUTH
+-- èªè¨¼ãƒžã‚¹ã‚¿
+CREATE TABLE ${schemaName}.M_AUTH
 (
-	-- ƒ†[ƒU[ŠÇ—”Ô†
+	-- ãƒ¦ãƒ¼ã‚¶ãƒ¼ç®¡ç†ç•ªå·
 	USER_MNG_NO varchar(18) NOT NULL,
-	-- ƒƒOƒCƒ“ƒpƒXƒ[ƒh
+	-- ãƒ­ã‚°ã‚¤ãƒ³ãƒ‘ã‚¹ãƒ¯ãƒ¼ãƒ‰
 	LOGIN_PASSWORD varchar(100),
-	-- ƒƒOƒCƒ“Ž¸”s‰ñ”
+	-- ãƒ­ã‚°ã‚¤ãƒ³å¤±æ•—å›žæ•°
 	LOGIN_FAILED_COUNT int,
-	-- ƒAƒJƒEƒ“ƒgƒƒbƒNƒtƒ‰ƒO
+	-- ã‚¢ã‚«ã‚¦ãƒ³ãƒˆãƒ­ãƒƒã‚¯ãƒ•ãƒ©ã‚°
 	ACCOUNT_LOCK_FLAG char(1),
-	-- ƒAƒJƒEƒ“ƒgƒƒbƒN“úŽž
+	-- ã‚¢ã‚«ã‚¦ãƒ³ãƒˆãƒ­ãƒƒã‚¯æ—¥æ™‚
 	ACCOUNT_LOCK_DATE timestamp,
-	-- ƒpƒXƒ[ƒh‘O‰ñXV“úŽž
+	-- ãƒ‘ã‚¹ãƒ¯ãƒ¼ãƒ‰å‰å›žæ›´æ–°æ—¥æ™‚
 	PASSWORD_LAST_UPDATED_DATE timestamp,
-	-- ƒo[ƒWƒ‡ƒ“
+	-- ãƒãƒ¼ã‚¸ãƒ§ãƒ³
 	VERSION int DEFAULT 1 NOT NULL,
-	-- ì¬ƒ†[ƒU[ID
+	-- ä½œæˆãƒ¦ãƒ¼ã‚¶ãƒ¼ID
 	CREATION_USER_ID varchar(20) DEFAULT '' NOT NULL,
-	-- ì¬“úŽž
+	-- ä½œæˆæ—¥æ™‚
 	CREATION_DATE timestamp DEFAULT CURRENT TIMESTAMP NOT NULL,
-	-- XVƒ†[ƒU[ID
+	-- æ›´æ–°ãƒ¦ãƒ¼ã‚¶ãƒ¼ID
 	UPDATED_USER_ID varchar(20) DEFAULT '' NOT NULL,
-	-- XV“úŽž
+	-- æ›´æ–°æ—¥æ™‚
 	UPDATED_DATE timestamp DEFAULT CURRENT TIMESTAMP NOT NULL,
 	PRIMARY KEY (USER_MNG_NO)
 );
 
 
--- —X•Ö”Ô†ƒ}ƒXƒ^
-CREATE TABLE M_POST_CODE
+-- éƒµä¾¿ç•ªå·ãƒžã‚¹ã‚¿
+CREATE TABLE ${schemaName}.M_POST_CODE
 (
-	-- —X•Ö”Ô†
+	-- éƒµä¾¿ç•ªå·
 	POST_CODE char(7) NOT NULL,
-	-- “s“¹•{Œ§–¼
+	-- éƒ½é“åºœçœŒå
 	PREFECTURE_NAME varchar(60),
-	-- Žs‹æ’¬‘º–¼
+	-- å¸‚åŒºç”ºæ‘å
 	CITY_NAME varchar(60),
-	-- ’¬ˆæ–¼
+	-- ç”ºåŸŸå
 	TOWN_NAME varchar(60),
-	-- ƒo[ƒWƒ‡ƒ“
+	-- ãƒãƒ¼ã‚¸ãƒ§ãƒ³
 	VERSION int DEFAULT 1 NOT NULL,
-	-- ì¬ƒ†[ƒU[ID
+	-- ä½œæˆãƒ¦ãƒ¼ã‚¶ãƒ¼ID
 	CREATION_USER_ID varchar(20) DEFAULT '' NOT NULL,
-	-- ì¬“úŽž
+	-- ä½œæˆæ—¥æ™‚
 	CREATION_DATE timestamp DEFAULT CURRENT TIMESTAMP NOT NULL,
-	-- XVƒ†[ƒU[ID
+	-- æ›´æ–°ãƒ¦ãƒ¼ã‚¶ãƒ¼ID
 	UPDATED_USER_ID varchar(20) DEFAULT '' NOT NULL,
-	-- XV“úŽž
+	-- æ›´æ–°æ—¥æ™‚
 	UPDATED_DATE timestamp DEFAULT CURRENT TIMESTAMP NOT NULL
 );
 
 
--- ƒVƒXƒeƒ€“ú•tƒ}ƒXƒ^
-CREATE TABLE M_SYSTEM_DATE
+-- ã‚·ã‚¹ãƒ†ãƒ æ—¥ä»˜ãƒžã‚¹ã‚¿
+CREATE TABLE ${schemaName}.M_SYSTEM_DATE
 (
-	-- ƒVƒXƒeƒ€“ú•t
+	-- ã‚·ã‚¹ãƒ†ãƒ æ—¥ä»˜
 	SYSTEM_DATE date NOT NULL,
-	-- ƒo[ƒWƒ‡ƒ“
+	-- ãƒãƒ¼ã‚¸ãƒ§ãƒ³
 	VERSION int DEFAULT 1 NOT NULL,
-	-- ì¬ƒ†[ƒU[ID
+	-- ä½œæˆãƒ¦ãƒ¼ã‚¶ãƒ¼ID
 	CREATION_USER_ID varchar(20) DEFAULT '' NOT NULL,
-	-- ì¬“úŽž
+	-- ä½œæˆæ—¥æ™‚
 	CREATION_DATE timestamp DEFAULT CURRENT TIMESTAMP NOT NULL,
-	-- XVƒ†[ƒU[ID
+	-- æ›´æ–°ãƒ¦ãƒ¼ã‚¶ãƒ¼ID
 	UPDATED_USER_ID varchar(20) DEFAULT '' NOT NULL,
-	-- XV“úŽž
+	-- æ›´æ–°æ—¥æ™‚
 	UPDATED_DATE timestamp DEFAULT CURRENT TIMESTAMP NOT NULL
 );
 
 
--- ƒ†[ƒU[ƒ}ƒXƒ^
-CREATE TABLE M_USER
+-- ãƒ¦ãƒ¼ã‚¶ãƒ¼ãƒžã‚¹ã‚¿
+CREATE TABLE ${schemaName}.M_USER
 (
-	-- ƒ†[ƒU[ŠÇ—”Ô†
+	-- ãƒ¦ãƒ¼ã‚¶ãƒ¼ç®¡ç†ç•ªå·
 	USER_MNG_NO varchar(18) NOT NULL,
-	-- ƒ†[ƒU[“o˜^“úŽž
+	-- ãƒ¦ãƒ¼ã‚¶ãƒ¼ç™»éŒ²æ—¥æ™‚
 	USER_REGISTRATION_DATE date,
-	-- Ž–¼Š¿Žš
+	-- æ°åæ¼¢å­—
 	NAME_KANJI varchar(60),
-	-- ƒ[ƒ‹
+	-- ãƒ¡ãƒ¼ãƒ«
 	EMAIL varchar(100),
-	-- ƒo[ƒWƒ‡ƒ“
+	-- ãƒãƒ¼ã‚¸ãƒ§ãƒ³
 	VERSION int DEFAULT 1 NOT NULL,
-	-- ì¬ƒ†[ƒU[ID
+	-- ä½œæˆãƒ¦ãƒ¼ã‚¶ãƒ¼ID
 	CREATION_USER_ID varchar(20) DEFAULT '' NOT NULL,
-	-- ì¬“úŽž
+	-- ä½œæˆæ—¥æ™‚
 	CREATION_DATE timestamp DEFAULT CURRENT TIMESTAMP NOT NULL,
-	-- XVƒ†[ƒU[ID
+	-- æ›´æ–°ãƒ¦ãƒ¼ã‚¶ãƒ¼ID
 	UPDATED_USER_ID varchar(20) DEFAULT '' NOT NULL,
-	-- XV“úŽž
+	-- æ›´æ–°æ—¥æ™‚
 	UPDATED_DATE timestamp DEFAULT CURRENT TIMESTAMP NOT NULL,
 	PRIMARY KEY (USER_MNG_NO)
 );
 
 
--- ŒÚ‹q
-CREATE TABLE T_CUSTOMER
+-- é¡§å®¢
+CREATE TABLE ${schemaName}.T_CUSTOMER
 (
-	-- ŒÚ‹q”Ô†
+	-- é¡§å®¢ç•ªå·
 	CUSTOMER_NO char(8) NOT NULL,
-	-- Ž–¼Š¿Žš
+	-- æ°åæ¼¢å­—
 	NAME_KANJI varchar(60) NOT NULL,
-	-- Ž–¼ƒJƒi
+	-- æ°åã‚«ãƒŠ
 	NAME_KANA varchar(60) NOT NULL,
-	-- «•Ê
+	-- æ€§åˆ¥
 	GENDER char(1) NOT NULL,
-	-- ¶”NŒŽ“ú
+	-- ç”Ÿå¹´æœˆæ—¥
 	BIRTHDAY date NOT NULL,
-	-- —X•Ö”Ô†
+	-- éƒµä¾¿ç•ªå·
 	ADDRESS_ZIP varchar(7) NOT NULL,
-	-- ZŠ
+	-- ä½æ‰€
 	ADDRESS varchar(200) NOT NULL,
-	-- ƒo[ƒWƒ‡ƒ“
+	-- ãƒãƒ¼ã‚¸ãƒ§ãƒ³
 	VERSION int DEFAULT 1 NOT NULL,
-	-- ì¬ƒ†[ƒU[ID
+	-- ä½œæˆãƒ¦ãƒ¼ã‚¶ãƒ¼ID
 	CREATION_USER_ID varchar(20) DEFAULT '' NOT NULL,
-	-- ì¬“úŽž
+	-- ä½œæˆæ—¥æ™‚
 	CREATION_DATE timestamp DEFAULT CURRENT TIMESTAMP NOT NULL,
-	-- XVƒ†[ƒU[ID
+	-- æ›´æ–°ãƒ¦ãƒ¼ã‚¶ãƒ¼ID
 	UPDATED_USER_ID varchar(20) DEFAULT '' NOT NULL,
-	-- XV“úŽž
+	-- æ›´æ–°æ—¥æ™‚
 	UPDATED_DATE timestamp DEFAULT CURRENT TIMESTAMP NOT NULL,
 	PRIMARY KEY (CUSTOMER_NO)
 );
 
 
--- ŒÚ‹q‰Æ‘°ŠÖ˜A
-CREATE TABLE T_CUSTOMER_FAMILY_RELATION
+-- é¡§å®¢å®¶æ—é–¢é€£
+CREATE TABLE ${schemaName}.T_CUSTOMER_FAMILY_RELATION
 (
-	-- ŒÚ‹q”Ô†
+	-- é¡§å®¢ç•ªå·
 	CUSTOMER_NO char(8) NOT NULL,
-	-- ‰Æ‘°”Ô†
+	-- å®¶æ—ç•ªå·
 	FAMILY_NO char(8) NOT NULL,
-	-- ƒo[ƒWƒ‡ƒ“
+	-- ãƒãƒ¼ã‚¸ãƒ§ãƒ³
 	VERSION int DEFAULT 1 NOT NULL,
-	-- ì¬ƒ†[ƒU[ID
+	-- ä½œæˆãƒ¦ãƒ¼ã‚¶ãƒ¼ID
 	CREATION_USER_ID varchar(20) DEFAULT '' NOT NULL,
-	-- ì¬“úŽž
+	-- ä½œæˆæ—¥æ™‚
 	CREATION_DATE timestamp DEFAULT CURRENT TIMESTAMP NOT NULL,
-	-- XVƒ†[ƒU[ID
+	-- æ›´æ–°ãƒ¦ãƒ¼ã‚¶ãƒ¼ID
 	UPDATED_USER_ID varchar(20) DEFAULT '' NOT NULL,
-	-- XV“úŽž
+	-- æ›´æ–°æ—¥æ™‚
 	UPDATED_DATE timestamp DEFAULT CURRENT TIMESTAMP NOT NULL,
 	PRIMARY KEY (CUSTOMER_NO, FAMILY_NO)
 );
 
 
--- ‰Æ‘°
-CREATE TABLE T_FAMILY
+-- å®¶æ—
+CREATE TABLE ${schemaName}.T_FAMILY
 (
-	-- ‰Æ‘°”Ô†
+	-- å®¶æ—ç•ªå·
 	FAMILY_NO char(8) NOT NULL,
-	-- Ž–¼Š¿Žš
+	-- æ°åæ¼¢å­—
 	NAME_KANJI varchar(60) NOT NULL,
-	-- Ž–¼ƒJƒi
+	-- æ°åã‚«ãƒŠ
 	NAME_KANA varchar(60) NOT NULL,
-	-- «•Ê
+	-- æ€§åˆ¥
 	GENDER char(1) NOT NULL,
-	-- ¶”NŒŽ“ú
+	-- ç”Ÿå¹´æœˆæ—¥
 	BIRTHDAY date NOT NULL,
-	-- ƒo[ƒWƒ‡ƒ“
+	-- ãƒãƒ¼ã‚¸ãƒ§ãƒ³
 	VERSION int DEFAULT 1 NOT NULL,
-	-- ì¬ƒ†[ƒU[ID
+	-- ä½œæˆãƒ¦ãƒ¼ã‚¶ãƒ¼ID
 	CREATION_USER_ID varchar(20) DEFAULT '' NOT NULL,
-	-- ì¬“úŽž
+	-- ä½œæˆæ—¥æ™‚
 	CREATION_DATE timestamp DEFAULT CURRENT TIMESTAMP NOT NULL,
-	-- XVƒ†[ƒU[ID
+	-- æ›´æ–°ãƒ¦ãƒ¼ã‚¶ãƒ¼ID
 	UPDATED_USER_ID varchar(20) DEFAULT '' NOT NULL,
-	-- XV“úŽž
+	-- æ›´æ–°æ—¥æ™‚
 	UPDATED_DATE timestamp DEFAULT CURRENT TIMESTAMP NOT NULL,
 	PRIMARY KEY (FAMILY_NO)
 );
 
 
--- ƒƒ“ƒ^ƒCƒ€ƒg[ƒNƒ“
-CREATE TABLE T_ONETIME_TOKEN
+-- ãƒ¯ãƒ³ã‚¿ã‚¤ãƒ ãƒˆãƒ¼ã‚¯ãƒ³
+CREATE TABLE ${schemaName}.T_ONETIME_TOKEN
 (
-	-- ƒƒ“ƒ^ƒCƒ€ƒg[ƒNƒ“
+	-- ãƒ¯ãƒ³ã‚¿ã‚¤ãƒ ãƒˆãƒ¼ã‚¯ãƒ³
 	ONETIME_TOKEN varchar(200) NOT NULL,
-	-- ƒ†[ƒU[ŠÇ—”Ô†
+	-- ãƒ¦ãƒ¼ã‚¶ãƒ¼ç®¡ç†ç•ªå·
 	USER_MNG_NO varchar(18),
-	-- ƒƒ“ƒ^ƒCƒ€ƒg[ƒNƒ“”­s“úŽž
+	-- ãƒ¯ãƒ³ã‚¿ã‚¤ãƒ ãƒˆãƒ¼ã‚¯ãƒ³ç™ºè¡Œæ—¥æ™‚
 	ONETIME_TOKEN_PUBLISH_DATE date,
-	-- ƒƒ“ƒ^ƒCƒ€ƒg[ƒNƒ“ƒXƒe[ƒ^ƒX
+	-- ãƒ¯ãƒ³ã‚¿ã‚¤ãƒ ãƒˆãƒ¼ã‚¯ãƒ³ã‚¹ãƒ†ãƒ¼ã‚¿ã‚¹
 	ONETIME_TOKEN_STATUS char(1),
-	-- ƒo[ƒWƒ‡ƒ“
+	-- ãƒãƒ¼ã‚¸ãƒ§ãƒ³
 	VERSION int DEFAULT 1 NOT NULL,
-	-- ì¬ƒ†[ƒU[ID
+	-- ä½œæˆãƒ¦ãƒ¼ã‚¶ãƒ¼ID
 	CREATION_USER_ID varchar(20) DEFAULT '' NOT NULL,
-	-- ì¬“úŽž
+	-- ä½œæˆæ—¥æ™‚
 	CREATION_DATE timestamp DEFAULT CURRENT TIMESTAMP NOT NULL,
-	-- XVƒ†[ƒU[ID
+	-- æ›´æ–°ãƒ¦ãƒ¼ã‚¶ãƒ¼ID
 	UPDATED_USER_ID varchar(20) DEFAULT '' NOT NULL,
-	-- XV“úŽž
+	-- æ›´æ–°æ—¥æ™‚
 	UPDATED_DATE timestamp DEFAULT CURRENT TIMESTAMP NOT NULL,
 	PRIMARY KEY (ONETIME_TOKEN)
 );
@@ -230,7 +230,7 @@ CREATE TABLE T_ONETIME_TOKEN
 
 /* Create Foreign Keys */
 
-ALTER TABLE M_AUTH
+ALTER TABLE ${schemaName}.M_AUTH
 	ADD CONSTRAINT M_AUTH_FK1 FOREIGN KEY (USER_MNG_NO)
 	REFERENCES M_USER (USER_MNG_NO)
 	ON UPDATE RESTRICT
@@ -238,7 +238,7 @@ ALTER TABLE M_AUTH
 ;
 
 
-ALTER TABLE T_CUSTOMER_FAMILY_RELATION
+ALTER TABLE ${schemaName}.T_CUSTOMER_FAMILY_RELATION
 	ADD CONSTRAINT T_CUSTOMER_FAMILY_RELATION_FK1 FOREIGN KEY (CUSTOMER_NO)
 	REFERENCES T_CUSTOMER (CUSTOMER_NO)
 	ON UPDATE RESTRICT
@@ -246,7 +246,7 @@ ALTER TABLE T_CUSTOMER_FAMILY_RELATION
 ;
 
 
-ALTER TABLE T_CUSTOMER_FAMILY_RELATION
+ALTER TABLE ${schemaName}.T_CUSTOMER_FAMILY_RELATION
 	ADD CONSTRAINT T_CUSTOMER_FAMILY_RELATION_FK2 FOREIGN KEY (FAMILY_NO)
 	REFERENCES T_FAMILY (FAMILY_NO)
 	ON UPDATE RESTRICT
