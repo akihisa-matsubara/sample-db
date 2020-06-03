@@ -8,15 +8,9 @@
 
     <properties>
         <project.lib.path>${basedir}/lib</project.lib.path>
-        <db.name>mydb</db.name>
-        <db.host>localhost</db.host>
-        <db.port>50000</db.port>
-        <db.schema>MYSCHEMA</db.schema>
-        <db.jdbc.url>jdbc:db2://${db.host}:${db.port}/${db.name}:currentSchema=${db.schema};</db.jdbc.url>
-        <db.username>db2admin</db.username>
-        <db.password>db2admin</db.password>
         <!-- version -->
         <flyway-maven-plugin.version>5.2.4</flyway-maven-plugin.version>
+        <db.jdbc.url>jdbc:db2://${db.host}:${db.port}/${db.name}:currentSchema=${db.schema};</db.jdbc.url>
     </properties>
 
     <dependencies>
@@ -29,6 +23,34 @@
             <systemPath>${project.lib.path}/db2jcc4.jar</systemPath>
         </dependency>
     </dependencies>
+
+    <profiles>
+        <profile>
+            <id>local</id>
+            <activation>
+                <activeByDefault>true</activeByDefault>
+            </activation>
+            <properties>
+                <db.name>mydb</db.name>
+                <db.host>localhost</db.host>
+                <db.port>50000</db.port>
+                <db.schema>MYSCHEMA</db.schema>
+                <db.username>db2admin</db.username>
+                <db.password>db2admin</db.password>
+            </properties>
+        </profile>
+        <profile>
+            <id>ci</id>
+            <properties>
+                <db.name>BLUDB</db.name>
+                <db.host>dashdb-txn-sbox-yp-dal09-04.services.dal.bluemix.net</db.host>
+                <db.port>50000</db.port>
+                <db.schema>WQQ05149</db.schema>
+                <db.username>wqq05149</db.username>
+                <db.password>${db2.password.ci}</db.password>
+            </properties>
+        </profile>
+    </profiles>
 
     <build>
         <pluginManagement>
