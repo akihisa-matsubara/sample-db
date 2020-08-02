@@ -26,10 +26,7 @@
 
     <profiles>
         <profile>
-            <id>local</id>
-            <activation>
-                <activeByDefault>true</activeByDefault>
-            </activation>
+            <id>Development</id>
             <properties>
                 <db.name>mydb</db.name>
                 <db.host>localhost</db.host>
@@ -40,7 +37,7 @@
             </properties>
         </profile>
         <profile>
-            <id>ci</id>
+            <id>ContinuousIntegration</id>
             <properties>
                 <db.name>BLUDB</db.name>
                 <db.host>dashdb-txn-sbox-yp-dal09-04.services.dal.bluemix.net</db.host>
